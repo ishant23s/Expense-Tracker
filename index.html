@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker — simple budgeting for irregular income</title>
+  <meta name="description" content="A simple, private, open-source expense tracker. Record income and expenses, categorise spending, set a monthly budget and understand your habits. No account, no server — your data stays in your browser.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>Expense Tracker</h1>
+      <p class="tagline">Simple budgeting for people whose income is not the same every month.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Summary cards -->
+    <section aria-label="Summary" class="cards">
+      <div class="card">
+        <span class="card-label">Income (month)</span>
+        <span class="card-value income" id="sum-income">₹0</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Expenses (month)</span>
+        <span class="card-value expense" id="sum-expense">₹0</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Balance</span>
+        <span class="card-value" id="sum-balance">₹0</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Savings rate</span>
+        <span class="card-value" id="sum-savings">0%</span>
+      </div>
+    </section>
+
+    <!-- Budget -->
+    <section aria-label="Monthly budget" class="panel">
+      <div class="panel-head">
+        <h2>Monthly budget</h2>
+        <label>
+          Month
+          <input type="month" id="month-picker">
+        </label>
+      </div>
+      <div class="budget-row">
+        <label>
+          Budget for this month (₹)
+          <input type="number" id="budget-input" min="0" step="100" placeholder="e.g. 8000">
+        </label>
+        <button type="button" id="budget-save">Set budget</button>
+      </div>
+      <div class="progress" role="progressbar" aria-label="Budget used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="budget-bar-wrap">
+        <div class="progress-fill" id="budget-bar"></div>
+      </div>
+      <p id="budget-text" class="muted">No budget set for this month yet.</p>
+    </section>
+
+    <div class="grid">
+      <!-- Add / edit form -->
+      <section aria-label="Add a transaction" class="panel">
+        <h2 id="form-title">Add a transaction</h2>
+        <form id="tx-form">
+          <label>
+            Type
+            <select id="tx-type" required>
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+          </label>
+          <label>
+            Amount (₹)
+            <input type="number" id="tx-amount" min="0.01" step="0.01" required placeholder="e.g. 250">
+          </label>
+          <label>
+            Category
+            <select id="tx-category" required></select>
+          </label>
+          <label>
+            Date
+            <input type="date" id="tx-date" required>
+          </label>
+          <label>
+            Payment mode
+            <select id="tx-payment"></select>
+          </label>
+          <label>
+            Note (optional)
+            <input type="text" id="tx-note" maxlength="120" placeholder="e.g. Lunch with friends">
+          </label>
+          <div class="form-actions">
+            <button type="submit" id="tx-submit">Add transaction</button>
+            <button type="button" id="tx-cancel" class="secondary" hidden>Cancel edit</button>
+          </div>
+          <p id="form-error" class="error" role="alert" hidden></p>
+        </form>
+      </section>
+
+      <!-- Category breakdown -->
+      <section aria-label="Spending by category" class="panel">
+        <h2>Spending by category</h2>
+        <div id="breakdown"></div>
+        <p id="breakdown-empty" class="muted">No expenses in this month yet.</p>
+      </section>
+    </div>
+
+    <!-- Transactions -->
+    <section aria-label="Transactions" class="panel">
+      <div class="panel-head">
+        <h2>Transactions</h2>
+        <div class="tools">
+          <input type="search" id="tx-search" placeholder="Search note or category" aria-label="Search transactions">
+          <button type="button" id="export-csv" class="secondary">Export CSV</button>
+          <button type="button" id="load-sample" class="secondary">Load sample data</button>
+          <button type="button" id="clear-all" class="danger">Clear all data</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Note</th><th>Category</th><th>Payment</th><th class="num">Amount</th><th></th></tr>
+          </thead>
+          <tbody id="tx-body"></tbody>
+        </table>
+      </div>
+      <p id="tx-empty" class="muted">Nothing here yet. Add your first transaction above, or load the sample data to see how it works.</p>
+    </section>
+
+    <p class="privacy muted">Private by design: everything is stored only in your browser (localStorage). No account, no server, nothing is uploaded anywhere.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap muted">Open source under the MIT License · Built for students and anyone living on irregular income.</div>
+  </footer>
+
+  <script src="logic.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

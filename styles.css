@@ -1,0 +1,74 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #1c2330;
+  --muted: #5c6675;
+  --border: #dde2ea;
+  --accent: #2563eb;
+  --income: #15803d;
+  --expense: #dc2626;
+  --warning: #d97706;
+  --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151b;
+    --surface: #1b1f28;
+    --text: #e8ebf0;
+    --muted: #9aa3b2;
+    --border: #2c3342;
+    --accent: #60a5fa;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+.site-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 28px 0 18px; }
+.site-header h1 { margin: 0; font-size: 1.9rem; }
+.tagline { margin: 4px 0 0; color: var(--muted); }
+.site-footer { padding: 20px 0 32px; font-size: 0.9rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+.card-label { font-size: 0.85rem; color: var(--muted); }
+.card-value { font-size: 1.5rem; font-weight: 700; }
+.card-value.income { color: var(--income); }
+.card-value.expense { color: var(--expense); }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; }
+.panel h2 { margin-top: 0; font-size: 1.15rem; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; justify-content: space-between; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; margin-bottom: 10px; }
+input, select, button { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
+button { background: var(--accent); border-color: var(--accent); color: #fff; cursor: pointer; font-weight: 600; }
+button.secondary { background: transparent; color: var(--text); border-color: var(--border); font-weight: 500; }
+button.danger { background: transparent; color: var(--expense); border-color: var(--expense); font-weight: 500; }
+button:hover { filter: brightness(1.07); }
+.budget-row { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
+.budget-row label { flex: 1; min-width: 200px; margin-bottom: 0; }
+.progress { height: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; margin-top: 14px; }
+.progress-fill { height: 100%; width: 0; background: var(--income); transition: width 0.25s ease; }
+.progress-fill.warning { background: var(--warning); }
+.progress-fill.over { background: var(--expense); }
+.muted { color: var(--muted); }
+.error { color: var(--expense); }
+.form-actions { display: flex; gap: 8px; }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.amount-income { color: var(--income); font-weight: 600; }
+.amount-expense { color: var(--expense); font-weight: 600; }
+.row-actions button { padding: 4px 8px; font-size: 0.85rem; margin-left: 4px; }
+.breakdown-row { margin-bottom: 10px; }
+.breakdown-head { display: flex; justify-content: space-between; font-size: 0.92rem; margin-bottom: 4px; }
+.breakdown-bar { height: 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+.breakdown-fill { height: 100%; background: var(--accent); }
+.privacy { text-align: center; font-size: 0.9rem; margin: 18px 0; }
